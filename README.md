@@ -1,4 +1,4 @@
-# BlurFit Studio 🎥✨
+# BlurFit Studio
 
 **BlurFit Studio** to nowoczesna, lekka i w pełni przenośna aplikacja desktopowa napisana w **Pythonie** przy użyciu **PyQt6**, służąca do inteligentnego dopasowywania proporcji wideo (np. konwersji poziomych nagrań z YouTube 16:9 do pionowego formatu 9:16 dla TikTok, Shorts czy Reels). 
 
@@ -6,7 +6,7 @@ Aplikacja rozwiązuje problem czarnych pasów na bokach ekranu poprzez wygenerow
 
 ---
 
-## 🌟 Główne funkcje
+## Główne funkcje
 
 - **Inteligentne tryby skalowania obrazu**:
   - **Dopasuj z rozmytym tłem (BlurFit)**: Tworzy estetyczną, rozmytą i powiększoną wersję wideo w tle, na którą nakłada oryginalny kadr. Suwak pozwala płynnie kontrolować intensywność rozmycia (0–100%).
@@ -30,7 +30,7 @@ Aplikacja rozwiązuje problem czarnych pasów na bokach ekranu poprzez wygenerow
 
 ---
 
-## 🛠️ Architektura projektu
+## Architektura projektu
 
 ```text
 Blurfit-studio/
@@ -53,7 +53,7 @@ Blurfit-studio/
 
 ---
 
-## 🚀 Instalacja i Uruchomienie
+## Instalacja i Uruchomienie
 
 ### Wymagania wstępne
 - **Python 3.8 lub nowszy**
@@ -84,7 +84,7 @@ Możesz ułatwić życie sobie i innym użytkownikom przenosząc pliki wykonywal
    - `ffmpeg.exe` i `ffprobe.exe` (na Windows)
    - `ffmpeg` i `ffprobe` (na macOS / Linux)
 4. Wklej je bezpośrednio do folderu wewnątrz projektu:
-   📂 `blurfit_studio/bin/`
+   - `blurfit_studio/bin/`
 
 *Alternatywnie:* Jeżeli posiadasz już FFmpeg zainstalowany globalnie w systemie i dodany do zmiennej środowiskowej `PATH`, aplikacja automatycznie wykryje go i użyje jako fallback.
 
@@ -97,7 +97,7 @@ python run.py
 
 ---
 
-## 🧪 Uruchamianie Testów
+## Uruchamianie Testów
 W projekcie znajduje się zestaw testów sprawdzających poprawność składania poleceń FFmpeg oraz kadrowania obrazu. Możesz je uruchomić za pomocą:
 
 ```bash
@@ -106,10 +106,10 @@ python -m unittest tests/test_ffmpeg.py
 
 ---
 
-## 🎨 Technologie
+## Technologie
 - **GUI & Preview**: PyQt6 (QtMultimedia, QtMultimediaWidgets, QGraphicsBlurEffect)
 - **Engine przetwarzania wideo**: FFmpeg / FFprobe (wywoływane asynchronicznie w tle poprzez `QThread` i `subprocess`)
 - **Design System**: Dedykowane arkusze stylów Qt (QSS) wspierające dynamiczne kompozycje, wektorowe ikony rysowane na obiektach `QPixmap` oraz autorskie widgety klasy `QAbstractButton` reagujące na interakcje użytkownika.
 
 ---
-Stworzone z dbałością o detale wizualne i płynność działania. ✨
+Stworzone z dbałością o detale wizualne i płynność działania. 
