@@ -111,6 +111,6 @@ develop-eggs/
 *.local
 
 # Application dynamic database settings
-blurfit_studio/bin/ffmpeg.exe
-blurfit_studio/bin/ffprobe.exe
 /build/BlurFitStudio
+/blurfit_studio/bin/ffmpeg.exe
+/blurfit_studio/bin/ffprobe.exe
