@@ -4,22 +4,66 @@ import json
 import subprocess
 from PyQt6.QtCore import QThread, pyqtSignal
 
+_ffmpeg_path_cache = {}
+
 def get_ffmpeg_path(name="ffmpeg"):
     """
     Returns the path to the ffmpeg or ffprobe executable.
-    Checks blurfit_studio/bin/ first (local to the package),
-    and falls back to system PATH.
+    Checks local directories, bundled PyInstaller binaries, and falls back to system PATH.
     """
-    # Try local package path: blurfit_studio/bin/<name>(.exe)
-    package_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    local_path = os.path.join(package_dir, "bin", name)
-    if sys.platform == "win32":
-        local_path += ".exe"
+    global _ffmpeg_path_cache
+    if name in _ffmpeg_path_cache:
+        return _ffmpeg_path_cache[name]
         
-    if os.path.exists(local_path):
-        return local_path
+    paths_to_check = []
+    
+    # 1. If running as a frozen PyInstaller executable
+    if getattr(sys, "frozen", False):
+        # Check in the folder next to the .exe: exe_dir/bin/
+        exe_dir = os.path.dirname(sys.executable)
+        p1 = os.path.join(exe_dir, "bin", name)
+        if sys.platform == "win32":
+            p1 += ".exe"
+        paths_to_check.append(p1)
         
+        # Check inside the PyInstaller temp bundle folder (if bundled inside the exe)
+        p2 = os.path.join(sys._MEIPASS, name)
+        if sys.platform == "win32":
+            p2 += ".exe"
+        paths_to_check.append(p2)
+    else:
+        # Running from Python source code
+        package_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        p1 = os.path.join(package_dir, "bin", name)
+        if sys.platform == "win32":
+            p1 += ".exe"
+        paths_to_check.append(p1)
+        
+    # Test each candidate path to ensure it runs successfully
+    for path in paths_to_check:
+        if os.path.exists(path):
+            try:
+                startupinfo = None
+                if sys.platform == "win32":
+                    startupinfo = subprocess.STARTUPINFO()
+                    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                    startupinfo.wShowWindow = 0 # SW_HIDE
+                    
+                res = subprocess.run(
+                    [path, "-version"],
+                    capture_output=True,
+                    text=True,
+                    startupinfo=startupinfo,
+                    timeout=1.5
+                )
+                if res.returncode == 0:
+                    _ffmpeg_path_cache[name] = path
+                    return path
+            except Exception:
+                pass
+                
     # Fallback to system PATH
+    _ffmpeg_path_cache[name] = name
     return name
 
 def get_video_metadata(file_path):

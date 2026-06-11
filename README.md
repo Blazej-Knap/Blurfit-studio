@@ -112,4 +112,4 @@ python -m unittest tests/test_ffmpeg.py
 - **Design System**: Dedykowane arkusze stylów Qt (QSS) wspierające dynamiczne kompozycje, wektorowe ikony rysowane na obiektach `QPixmap` oraz autorskie widgety klasy `QAbstractButton` reagujące na interakcje użytkownika.
 
 ---
-Stworzone z dbałością o detale wizualne i płynność działania. 
+Stworzone z dbałością o detale wizualne i płynność działania.
